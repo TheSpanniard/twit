@@ -11,10 +11,16 @@ class User(models.Model):
     show_name = models.CharField()
     password = models.CharField()
     email = models.CharField()
+    followers = models.ManyToManyField(User, relate_name="followers")
+    following = models.ManyToManyField(User, related_name="following")
     """
     TODO:
-    List of Followers and Following
-    Posts
     Messaging
     Encrypt Password
     """
+
+class Post(models.Model):
+    message = models.CharField()
+    author = models.ForeignKeyField(User, on_delete=models.CASCADE)
+    likes = models.IntegerField()
+    retwits = models.IntegerField()
